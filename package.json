@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "electron-is-dev": "^1.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
@@ -14,7 +15,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron public/electron.js\"",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-build": "yarn build",
+    "electron-build": "electron-builder -w"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +35,32 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.14",
+    "@rescripts/rescript-env": "^0.0.12",
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2",
+    "electron": "^9.1.2",
+    "electron-builder": "^22.8.0",
+    "typescript": "^3.9.7",
+    "wait-on": "^5.1.0"
+  },
+  "author": {
+    "name": "Vitor Guirardeli Arakaki",
+    "email": "vitor-arakaki@hotmail.com"
+  },
+  "homepage": "./",
+  "main": "public/electron.js",
+  "build": {
+    "productName": "Curso SQL",
+    "copyright": "Copyright © 2020 Vitor Guirardeli Arakaki",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   }
 }
